@@ -16,36 +16,41 @@ Template.pie.rendered = function() {
     'COAL': '#660000'
   }
 
-  var chartOptions = {
-    chart: {
+  var chartOptions = function(){
+    var totalMW = 0;
+    if (PieData.find().fetch()[0])
+      totalMW = PieData.find().fetch()[0]['totalMW'];
+    options = {
+      chart: {
       type: 'pie'
-    },
-    title: {
-      text: 'Current Generation Mix ( Total: {point.y} )'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.y} MW',
-          style: {
-            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+      },
+      title: {
+        text: 'Current Generation Mix ( Total:' + totalMW + ' )'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.y} MW',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
           }
         }
       }
-    }
+    };
+    return options
   };
 
   //set initial series data
-  chartSeries = function(dataSet){
+  chartSeries = function(){
     dataSet = PieData.find().fetch()
     if (dataSet[0]){
-      // var totalMW = dataSet[0]['totalMW']
       seriesObject = {
         series : [{
           name: 'Generation Mix',
@@ -56,7 +61,7 @@ Template.pie.rendered = function() {
       //for each of the items we requested, create a series
       for (a in keys)
         //don't want the date
-        if (keys[a] != 'date'){
+        if (keys[a] != 'date' && keys[a] != 'totalMW'){
           seriesObject.series[0].data.push({
             name: keys[a],
             y: dataSet[0][keys[a]],
@@ -68,7 +73,7 @@ Template.pie.rendered = function() {
     }
 
   Tracker.autorun(function(){
-    var chartObject = _.extend(chartOptions, chartSeries());
+    var chartObject = _.extend(chartOptions(), chartSeries());
     var chart = $('#pie').highcharts(chartObject);
   })
 }
