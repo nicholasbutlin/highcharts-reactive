@@ -8,4 +8,5 @@ nickos:highcharts
 iron:router
 less
 sacha:spin
+gandev:server-eval
 

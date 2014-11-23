@@ -5,7 +5,7 @@ Meteor.publish('areaData', function(filter, sort) {
     added: function (id, fields) {
       item = {}
       for (a in keys)
-        if (keys[a] != 'date'){
+        if (keys[a] != 'date' ){
           data = {};
           values = {};
           values['y'] = fields[keys[a]];
@@ -35,11 +35,7 @@ Meteor.publish('pieData', function(filter, sort) {
       for (a in keys)
         if (keys[a] != 'date'){
           data = {};
-          values = {};
-          values['y'] = fields[keys[a]];
-          values['x'] = new Date(fields.date);
-          values['id'] = id + 'Pt' + a;
-          data[keys[a]] = values;
+          data[keys[a]] = fields[keys[a]];
           _.extend(item, data)
         };
         self.added("pieDataSet", id, item);
