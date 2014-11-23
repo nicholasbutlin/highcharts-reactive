@@ -1,0 +1,80 @@
+DataPoints.insert({
+    '_id': "146b7b301b37d87sadadsw7",
+    'date': "2014-11-18T16:05:00Z",
+    'INTEW': 0,
+    'INTNED': 962,
+    'INTIRL': 0,
+    'INTFR': 1997,
+    'OTHER': 1092,
+    'NPSHYD': 770,
+    'PS': 1524,
+    'WIND': 2106,
+    'NUCLEAR': 5357,
+    'COAL': 14830,
+    'OIL': 0,
+    'OCGT': 0,
+    'CCGT': 20162,
+    'totalMW': 48800,
+    '__v': 0
+  })
+
+DataPoints.remove({_id: "146b7b301b37d87sadadsw7"})
+
+[
+  {
+    '_id': "146b7b301b37d87sadadsw7",
+    'date': "2014-11-18T16:05:00Z",
+    'INTEW': 0,
+    'INTNED': 962,
+    'INTIRL': 0,
+    'INTFR': 1997,
+    'OTHER': 1092,
+    'NPSHYD': 770,
+    'PS': 1524,
+    'WIND': 2106,
+    'NUCLEAR': 5357,
+    'COAL': 14830,
+    'OIL': 0,
+    'OCGT': 0,
+    'CCGT': 20162,
+    'totalMW': 48800,
+    '__v': 0
+  },
+  {
+    '_id': "546b7b301b37d87512779877",
+    'date': "2014-11-18T16:00:00Z",
+    'INTEW': 0,
+    'INTNED': 962,
+    'INTIRL': 0,
+    'INTFR': 1997,
+    'OTHER': 1092,
+    'NPSHYD': 770,
+    'PS': 1524,
+    'WIND': 2106,
+    'NUCLEAR': 5357,
+    'COAL': 14830,
+    'OIL': 0,
+    'OCGT': 0,
+    'CCGT': 20162,
+    'totalMW': 48800,
+    '__v': 0
+  }
+]
+
+
+
+
+'date': 1,
+'INTEW': 1,
+'INTNED': 1,
+'INTIRL': 1,
+'INTFR': 1,
+'OTHER': 1,
+'NPSHYD': 1,
+'PS': 1,
+'WIND': 1,
+'NUCLEAR': 1,
+'COAL': 1,
+'OIL': 1,
+'OCGT': 1,
+'CCGT': 1

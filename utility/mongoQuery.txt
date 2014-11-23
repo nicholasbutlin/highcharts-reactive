@@ -1,0 +1,1 @@
+mongo data --eval "printjson(db.gridgenmixes.find().sort({date: -1}).limit(1000).toArray())" >> out.json
