@@ -1,5 +1,4 @@
 Template.area.rendered = function() {
-  var keys = _.keys(Session.get('fields'));
   var serColors = {
     'INTEW': '#9999ff',
     'INTNED': '#6666ff',
@@ -16,39 +15,45 @@ Template.area.rendered = function() {
     'COAL': '#660000'
   }
 
-  var chartOptions = {
-    chart: {
-      type: 'areaspline'
-    },
-    title: {
-      text: 'Generation Mix'
-    },
-    xAxis: {
-      type: 'datetime'
-    },
-    yAxis :{
+  var chartOptions = function(){
+    var options = {
+      chart: {
+        type: 'areaspline'
+      },
+      title: {
+        text: 'Generation Mix'
+      },
+      xAxis: {
+        type: 'datetime'
+      },
+      yAxis :{
 
-    },
-    plotOptions: {
-      areaspline: {
-        stacking: 'normal',
-        lineColor: '#666666',
-        lineWidth: 1,
-        marker: {
-          enabled: false,
-          symbol: 'circle',
-          radius: 2
+      },
+      plotOptions: {
+        areaspline: {
+          stacking: 'normal',
+          lineColor: '#666666',
+          lineWidth: 1,
+          marker: {
+            enabled: false,
+            symbol: 'circle',
+            radius: 2
+          }
+        },
+        series: {
+          fillOpacity: 1,
+          animation: {
+            duration: 300
+          }
         }
       },
-      series: {
-        fillOpacity: 1
+      tooltip: {
+        shared: true,
+        valueSuffix: ' MW'
       }
-    },
-    tooltip: {
-      shared: true,
-      valueSuffix: ' MW'
-    }
-  };
+    };
+    return options
+  }
 
   //set initial series data
   chartSeries = function(){
@@ -68,13 +73,15 @@ Template.area.rendered = function() {
       return seriesObject
     }
 
-    var chartObject = _.extend(chartOptions, chartSeries());
-
-    var chart = $('#area').highcharts(chartObject);
+    Tracker.autorun(function(){
+      keys = _.keys(Session.get('fields'));
+    })
+    chartObject = _.extend(chartOptions(), chartSeries());
+    chart = $('#area').highcharts(chartObject);
 
     this.areaHandle = AreaData.find().observe({
       added: function(d){
-        var chart = $('#area').highcharts();
+        chart = $('#area').highcharts();
         //for each of the items we requested, create a series
         for (a in keys)
           //don't want the date
@@ -84,7 +91,7 @@ Template.area.rendered = function() {
           }
         },
         removed: function(d){
-          var chart = $('#area').highcharts();
+          chart = $('#area').highcharts();
           for (a in keys)
             //don't want the date
             if (keys[a] != 'date'){
@@ -93,6 +100,7 @@ Template.area.rendered = function() {
             }
           }
         });
+
 }
 
 Template.area.destroyed = function(){

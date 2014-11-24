@@ -18,9 +18,9 @@ DataPoints.insert({
     '__v': 0
   })
 
-DataPoints.remove({_id: "146b7b301b37d87sadadsw7"})
+DataPoints.remove({_id: "546b7b301b37d87512779877"})
 
-[
+DataPoints.insert([
   {
     '_id': "146b7b301b37d87sadadsw7",
     'date': "2014-11-18T16:05:00Z",
@@ -60,6 +60,7 @@ DataPoints.remove({_id: "146b7b301b37d87sadadsw7"})
     '__v': 0
   }
 ]
+)
 
 
 

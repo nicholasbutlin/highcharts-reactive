@@ -31,6 +31,11 @@ Template.pie.rendered = function() {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
       },
       plotOptions: {
+        series: {
+          animation: {
+            duration: 300
+          }
+        },
         pie: {
           allowPointSelect: true,
           cursor: 'pointer',
@@ -42,6 +47,9 @@ Template.pie.rendered = function() {
             }
           }
         }
+      },
+      credits: {
+        enabled: false
       }
     };
     return options
