@@ -76,6 +76,7 @@ Template.area.rendered = function() {
     Tracker.autorun(function(){
       keys = _.keys(Session.get('fields'));
     })
+
     chartObject = _.extend(chartOptions(), chartSeries());
     chart = $('#area').highcharts(chartObject);
 
@@ -87,7 +88,7 @@ Template.area.rendered = function() {
           //don't want the date
           if (keys[a] != 'date'){
             point = d[keys[a]];
-            chart.series[a-1].addPoint(point);
+            chart.series[keys[a]].addPoint(point);
           }
         },
         removed: function(d){
