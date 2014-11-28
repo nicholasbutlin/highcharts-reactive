@@ -17,15 +17,13 @@ Template.pie.rendered = function() {
   }
 
   var chartOptions = function(){
-    var totalMW = 0;
-    if (PieData.find().fetch()[0])
-      totalMW = PieData.find().fetch()[0]['totalMW'];
     options = {
       chart: {
       type: 'pie'
       },
       title: {
-        text: 'Current Generation Mix ( Total:' + totalMW + ' )'
+        text: 'Current Generation : 0',
+        useHTML: true
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -48,6 +46,14 @@ Template.pie.rendered = function() {
           }
         }
       },
+      series: [{
+          name: 'Generation Mix',
+          type: 'pie',
+          data: [{
+            name: 'CCGT',
+            y: 0
+          }]
+      }],
       credits: {
         enabled: false
       }
@@ -55,33 +61,30 @@ Template.pie.rendered = function() {
     return options
   };
 
-  //set initial series data
-  chartSeries = function(){
-    dataSet = PieData.find().fetch()
-    if (dataSet[0]){
-      seriesObject = {
-        series : [{
-          name: 'Generation Mix',
-          type: 'pie',
-          data: []
-          }
-        ]}
-      //for each of the items we requested, create a series
-      for (a in keys)
-        //don't want the date
-        if (keys[a] != 'date' && keys[a] != 'totalMW'){
-          seriesObject.series[0].data.push({
-            name: keys[a],
-            y: dataSet[0][keys[a]],
-            color: serColors[keys[a]]
-          })
-        }
-        return seriesObject
-      }
-    }
+  chart = $('#pie').highcharts(chartOptions());
 
-  Tracker.autorun(function(){
-    var chartObject = _.extend(chartOptions(), chartSeries());
-    var chart = $('#pie').highcharts(chartObject);
-  })
+  this.areaHandle = PieData.find().observe({
+    added: function(d){
+      chart = $('#pie').highcharts();
+      chart.setTitle({
+        text: 'Current Generation Mix : ' + d.totalMW + ' MW <br>' + '<h6>' + new Date(d.date) + '</h6> <br>'
+        });
+      //for each of the items we requested, create a series
+      delete d.date
+      delete d.totalMW
+      delete d._id
+      b =[]
+      keys = _.keys(d)
+      for (a in keys)
+        b.push({
+          'name': keys[a],
+          'y' : d[keys[a]]
+        })
+      chart.series[0].setData(b)
+      }
+  });
+}
+
+Template.pie.destroyed = function(){
+  this.areaHandle.stop();
 }

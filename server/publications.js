@@ -31,14 +31,15 @@ Meteor.publish('pieData', function(filter, sort) {
   keys = _.keys(sort.fields);
   var handle = DataPoints.find( filter || {}, sort || {}).observeChanges({
     added: function (id, fields) {
-      item = {}
-      for (a in keys)
-        if (keys[a] != 'date'){
-          data = {};
-          data[keys[a]] = fields[keys[a]];
-          _.extend(item, data)
-        };
-        self.added("pieDataSet", id, item);
+      // console.log(fields)
+      // // item = {}
+      // // for (a in keys)
+      // //   if (keys[a] != 'date'){
+      // //     data = {};
+      // //     data[keys[a]] = fields[keys[a]];
+      // //     _.extend(item, data)
+      // //   };
+        self.added("pieDataSet", id, fields);
       },
       removed: function (id) {
         self.removed("pieDataSet", id);

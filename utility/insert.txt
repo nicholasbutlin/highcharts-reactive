@@ -18,6 +18,26 @@ DataPoints.insert({
     '__v': 0
   })
 
+  db.data.insert({
+    '_id': "146b7b301b37d87sfdfgsdsw7",
+    'date': "2014-11-18T16:10:00Z",
+    'INTEW': 0,
+    'INTNED': 92,
+    'INTIRL': 0,
+    'INTFR': 197,
+    'OTHER': 12,
+    'NPSHYD': 770,
+    'PS': 1524,
+    'WIND': 2106,
+    'NUCLEAR': 537,
+    'COAL': 140,
+    'OIL': 0,
+    'OCGT': 0,
+    'CCGT': 262,
+    'totalMW': 800,
+    '__v': 0
+  })
+
 DataPoints.remove({_id: "546b7b301b37d87512779877"})
 
 DataPoints.insert([

@@ -8,7 +8,5 @@ nickos:highcharts
 iron:router
 less
 sacha:spin
-gandev:server-eval
 meteorhacks:fast-render
 meteorhacks:subs-manager
-
